@@ -115,7 +115,10 @@ I would like the routes to be a distinct colour. First, I thought of using the o
 
 I used the Euclidean distance formula $(1)$ for calculating the distance from the starting point for each coordinate pair. This distance is in the column *eucledian_distance*, which is then normalised to a range between 0 and 1, in the column *normalised_distance*. This is then used to map the distances to colours in the chosen colour map. The resulting colours are stored in a new column called *gradient_colour*.
 
-$\text{eucledian\_distance} = \sqrt{(\text{latitude} - \text{starting\_latitude})^2 + (\text{longitude} - \text{starting\_longitude})^2}$
+$$
+d_{\text{euclidean}} =
+\sqrt{(\text{latitude} - \text{latitude}_{\text{start}})^2 + (\text{longitude} - \text{longitude}_{\text{start}})^2}
+$$
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/31716618-8e38-45a9-81e0-11c93512d44a" width="250" />
@@ -123,3 +126,34 @@ $\text{eucledian\_distance} = \sqrt{(\text{latitude} - \text{starting\_latitude}
   <img src="https://github.com/user-attachments/assets/6431bb78-064d-4925-a809-a36bb32e235d" width="250" />
 </div>
 
+## **Visualisation**
+
+First, I create a static plot using Matplotlib. I set up the figure and axes, then plotted the coordinates using a scatter plot. The colours of the points were determined by the *gradient_colour* column. The background of the plot is set to a basemap of Haarlem, which I obtained from OpenStreetMap using the `contextily` library. Its style is "Positron", which is a clean and minimalistic look. Finally, I set the title and additional information, such as delivered orders and total distance cycled. For the text, I used the "Futura" font, which is similar to the font used in the UberEats app.
+
+![final-map](https://github.com/user-attachments/assets/77eb25cc-ffd1-4a7f-b45a-ab4fad0c6af0)
+
+I start with the animation of the map itself. Let it zoom out from the starting location to the full view of the route. I don't want to start with a too zoomed-in map, as it would not be very interesting. I want to show the old town of Haarlem, with its unique outline of streets and canals, then zoom out to show the full route.
+
+
+https://github.com/user-attachments/assets/9a7b311f-f579-44a0-82c9-ab8157410d04
+https://github.com/user-attachments/assets/5412933e-28ab-41b2-9cdf-96382769f7ca
+
+I start with the animation of the map itself. Let it zoom out from the starting location to the full view of the route. I don't want to start with a too zoomed-in map, as it would not be very interesting. I want to show the old town of Haarlem, with its unique outline of streets and canals, then zoom out to show the full route.
+
+<img width="1675" height="226" alt="grid" src="https://github.com/user-attachments/assets/311a6f07-68d0-4fff-9ed0-dab507d33acc" />
+
+Now the path animation part.
+
+I want the animation (which means that the coordinates appearing one by one) to start from the starting location. To achieve this, I have two methods in mind.
+
+The first method is to sort the data by the Euclidean distance from the starting point, in ascending order. This way, the points closest to the starting point will be plotted first, and the points furthest away will be plotted last. You can see this in the first gif below, but it is not exactly what I want. The points are plotted in a circular manner, which does not represent the actual route taken.
+
+The second method is to use a custom sorting algorithm that takes into account not only the distance from the starting point but also the direction of movement. This way, the points will be plotted in a more natural order, following the actual route taken.
+
+## **Final Animation**
+
+After defining the animation of the map and the path, I combine them into a single animation. This involves rendering each frame of the map animation first, followed by the corresponding frame of the path animation. The result is a smooth transition from the zoomed-in view of the starting location to the full view of the route, with the path being drawn in real-time. There are many data points, so the animation is quite long, but it effectively showcases the entire route. It takes a while to render, but the final result is worth it.
+
+When all frames are rendered, I use another tool to combine them into a single video file. This involves stitching together the individual frames into a continuous video format, such as MP4 or GIF. The final video can then be shared or uploaded to various platforms for viewing.
+
+*final video*
