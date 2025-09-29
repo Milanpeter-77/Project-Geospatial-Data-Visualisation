@@ -156,6 +156,10 @@ After defining the animation of the map and the path, I combine them into a sing
 
 When all frames are rendered, I use another tool to combine them into a single video file. This involves stitching together the individual frames into a continuous video format, such as MP4 or GIF. The final video can then be shared or uploaded to various platforms for viewing.
 
-*final video*
+
+
+https://github.com/user-attachments/assets/f5389242-8bba-4c07-bf8b-643bbb294706
+
+
 
 *Disclaimer: I only upload the notebook file with the python code, not the data files, as they can contain sensitive information.*
